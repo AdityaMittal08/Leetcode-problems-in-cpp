@@ -5,8 +5,6 @@ class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
         int n = matrix.size();
-        int a = 0;
-        int c = matrix.size();
         for(int i = 0; i < n; i++){
             for(int j = n - 1; j >= 0; j--){
                 if(i == j){
@@ -16,8 +14,8 @@ public:
             }
         }
 
-        for(int i = 0; i < matrix.size(); i++){
-            for(int j = 0; j < matrix.size(); j++){
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
                 if(j > n-1-j){
                     break;
                 }
