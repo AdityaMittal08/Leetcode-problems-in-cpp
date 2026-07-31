@@ -3,14 +3,22 @@ using namespace std;
 
 class Solution {
 public:
-    int uniquePaths(int m, int n) {
-        vector <vector<int>> dp(m, vector <int> (n, 1));
-        for(int i = 1; i < m; i++){
-            for(int j = 1; j < n; j++){
-                dp[i][j] = dp[i-1][j] + dp[i][j-1];
-            }
+    int paths(int k, int l, int m, int n, vector<vector<int>>& dp){
+        if( k >= m || l >= n){
+            return 0;
+        }
+        if(k == m-1 && l == n-1){
+            return 1;
+        }
+        if(dp[k][l] != -1){
+            return dp[k][l];
         }
 
-        return dp[m-1][n-1];
+        return dp[k][l] = paths(k + 1, l, m, n, dp) + paths(k, l+ 1, m, n, dp);         
+    }
+
+    int uniquePaths(int m, int n) {
+        vector<vector<int>> dp(m, vector<int>(n, -1));
+        return paths(0, 0, m, n, dp);
     }
 };
