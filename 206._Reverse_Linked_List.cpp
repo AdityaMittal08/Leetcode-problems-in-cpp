@@ -11,9 +11,9 @@ struct ListNode {
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode* prev = NULL;
+        ListNode* prev = nullptr;
         ListNode* current = head;
-        while(current != NULL){
+        while(current != nullptr){
             ListNode* temp = current->next;
             current->next = prev;
             prev = current;
