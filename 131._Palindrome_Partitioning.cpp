@@ -3,38 +3,49 @@
 using namespace std;
 
 class Solution {
-private:
-    bool isPalindrome(string s){
-        int i=0;
-        int j=s.size()-1;
-        while(i<j){
-            if(s[i++]!=s[j--]){
+public:
+
+    bool checkPalindrome(string arr){
+        int i = 0;
+        int j = arr.size() - 1;
+
+        while(i <= j){
+            if(arr[i] != arr[j]){
                 return false;
             }
+            i++;
+            j--;
         }
+
         return true;
     }
-    void getAllParts(string s, vector <string> &partitions, vector<vector<string>> &ans){
-        if(s.size() == 0){
-            ans.push_back(partitions);
+
+    void getPalindrome(vector<vector<string>> &palinds, vector<string> &arr, string &s, int j){
+        if(j == s.size()){
+            palinds.push_back(arr);
             return;
         }
-        for(int i = 0; i < s.size(); i++){
-            string part = s.substr(0, i+ 1);
-            if(isPalindrome(part)){
-                partitions.push_back(part);
-                getAllParts(s.substr(i+ 1), partitions, ans);
-                partitions.pop_back();
+
+        string k = "";
+
+        for(int i = j; i < s.size(); i++){
+            k += s[i];
+            if(checkPalindrome(k)){
+                arr.push_back(k);
+                getPalindrome(palinds, arr, s, i + 1);
+                arr.pop_back();
             }
         }
+
+        return;
     }
 
-public:
-    vector<vector<string>> partition(string s) {
-        vector<vector<string>> ans;
-        vector<string> partitions;
-        getAllParts(s, partitions, ans);
 
-        return ans;
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> palinds;
+        vector<string>arr;
+        getPalindrome(palinds, arr, s, 0);
+
+        return palinds;
     }
 };
